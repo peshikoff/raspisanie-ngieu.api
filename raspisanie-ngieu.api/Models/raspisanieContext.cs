@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -30,19 +31,18 @@ namespace raspisanie_ngieu.api.Models
         public virtual DbSet<СписокГрупп> СписокГруппs { get; set; } = null!;
         public virtual DbSet<ТипНедели> ТипНеделиs { get; set; } = null!;
         public virtual DbSet<ТипыПар> ТипыПарs { get; set; } = null!;
-
+        public virtual DbSet<StoredProcedureModel> StoredProcedureModels { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Name=raspisnie-ngieuDB");
-            } }
+                optionsBuilder.UseSqlServer("Name=raspisanie-ngieuDB");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.UseCollation("Cyrillic_General_CI_AS");
-
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.Guid);
@@ -439,7 +439,11 @@ namespace raspisanie_ngieu.api.Models
 
                 entity.Property(e => e.Guid).HasDefaultValueSql("(newid())");
             });
+            modelBuilder.Entity<StoredProcedureModel>(entity =>
+            {
+                entity.HasNoKey();
 
+            });
             OnModelCreatingPartial(modelBuilder);
         }
 

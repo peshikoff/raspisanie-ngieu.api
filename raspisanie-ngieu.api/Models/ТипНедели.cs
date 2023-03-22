@@ -13,6 +13,7 @@ namespace raspisanie_ngieu.api.Models
 
         public Guid Guid { get; set; }
         public string ТипНедели1 { get; set; } = null!;
+        public bool? Current { get; set; }
 
         public virtual ICollection<Изменения> Измененияs { get; set; }
         public virtual ICollection<Расписание> Расписаниеs { get; set; }
