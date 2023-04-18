@@ -12,7 +12,7 @@ using raspisanie_ngieu.api.Models;
 
 namespace raspisanie_ngieu.api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class IzmeneniyaController : ControllerBase
     {
@@ -23,29 +23,10 @@ namespace raspisanie_ngieu.api.Controllers
             _context = context;
         }
 
-        // GET: api/Izmeneniya
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Изменения>>> GetИзмененияs()
-        {
-            return await _context.Измененияs.ToListAsync();
-        }
-
-        // GET: api/Izmeneniya/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Изменения>> GetИзменения(Guid id)
-        {
-            var изменения = await _context.Измененияs.FindAsync(id);
-
-            if (изменения == null)
-            {
-                return NotFound();
-            }
-
-            return изменения;
-        }
+        
         //GET : api/Izmeneniya/15С/Четверг
-        [HttpGet("{group}/{day}")]
-        public IEnumerable<StoredProcedureModel> GetChanges(string group,  string day)
+        [HttpGet("Izmeneniya/{group}/{day}")]
+        public IEnumerable<StoredProcedureModel> GetChanges(string group, string day)
         {
             var Group = new SqlParameter
             {
@@ -54,7 +35,8 @@ namespace raspisanie_ngieu.api.Controllers
                 Direction = ParameterDirection.Input,
                 ParameterName = "Group"
             };
-            var Day = new SqlParameter {
+            var Day = new SqlParameter
+            {
                 Value = day,
                 SqlDbType = SqlDbType.NVarChar,
                 Direction = ParameterDirection.Input,
@@ -63,12 +45,6 @@ namespace raspisanie_ngieu.api.Controllers
             var result = _context.StoredProcedureModels.FromSqlRaw("EXECUTE dbo.[GETchangesByGroup] @Group={0},@Day={1}", Group, Day);
             return result;
 
-        }
-        
-
-        private bool ИзмененияExists(Guid id)
-        {
-            return _context.Измененияs.Any(e => e.Guid == id);
         }
     }
 }

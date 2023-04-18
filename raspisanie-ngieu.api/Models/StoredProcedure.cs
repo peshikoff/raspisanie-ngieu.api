@@ -8,16 +8,17 @@ namespace raspisanie_ngieu.api.Models
     {
         public string Week { get; set; } = null!;
         public string Day { get; set; } = null!;
-        
-        public byte Номер_Пары { get; set; }
+
+        public byte Number { get; set; }
+        public string Time { get; set; } = null!;
         public string Group { get; set; } = null!;
         
         public string Lesson { get; set; } = null!;
         
-        public string Тип_Пары { get; set; } = null!;
-        
-        public string ФИО { get; set; } = null!;
-        
-        public string? Кабинет { get; set; }
+        public string? Type { get; set; } = null!;
+
+        public string FIO { get; set; } = null!;
+
+        public string? Room { get; set; } = null!;
     }
 }
