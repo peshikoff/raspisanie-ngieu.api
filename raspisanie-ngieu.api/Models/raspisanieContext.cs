@@ -32,6 +32,9 @@ namespace raspisanie_ngieu.api.Models
         public virtual DbSet<ТипНедели> ТипНеделиs { get; set; } = null!;
         public virtual DbSet<ТипыПар> ТипыПарs { get; set; } = null!;
         public virtual DbSet<StoredProcedureModel> StoredProcedureModels { get; set; } = null!;
+        public virtual DbSet<Groups> Groups { get; set; } = null!;
+        public virtual DbSet<Weeks> Weeks { get; set; } = null!;
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -444,6 +447,16 @@ namespace raspisanie_ngieu.api.Models
                 entity.HasNoKey();
 
             });
+            modelBuilder.Entity<Groups>(entity =>
+            {
+                entity.HasNoKey();
+
+            });
+            modelBuilder.Entity<Weeks>(entity =>
+            {
+                entity.HasNoKey();
+            });
+
             OnModelCreatingPartial(modelBuilder);
         }
 

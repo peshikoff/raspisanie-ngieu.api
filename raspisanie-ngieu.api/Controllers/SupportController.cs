@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
+using raspisanie_ngieu.api.Models;
+
+namespace raspisanie_ngieu.api.Controllers
+{
+    [ApiController]
+    [Route("api/Support/")]
+   
+    public class SupportController : ControllerBase
+    {
+        private readonly raspisanieContext _context;
+
+        public SupportController(raspisanieContext context)
+        {
+            _context = context;
+        }
+
+
+        //GET : api/Support/getGroups
+        [HttpGet("getGroups")]
+        public IEnumerable<Groups> GetGroups()
+        {
+                
+            var result = _context.Groups.FromSqlRaw("EXECUTE [dbo].[GetGroups]");
+            return result;
+
+        }
+        //GET : api/Support/GetCurrentWeek
+        [HttpGet("GetCurrentWeek")]
+        public IActionResult GetCurrentWeek()
+        {
+            var result = new JsonResult(_context.Weeks.FromSqlRaw("EXECUTE [dbo].[GetCurrentWeekType]"), new JsonSerializerOptions { PropertyNamingPolicy = null });
+            return result;
+        }
+    }
+}

@@ -12,6 +12,8 @@ builder.Services.AddControllers()
     });
 builder.Services.AddDbContext<raspisanieContext>(options =>
 options.UseSqlServer(builder.Configuration.GetConnectionString("raspisnie-ngieuDB")));
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
