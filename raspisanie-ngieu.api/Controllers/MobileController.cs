@@ -62,7 +62,7 @@ namespace raspisanie_ngieu.api.Controllers
             return result;
         }
 
-        //GET: api/raspisanie/15С/Четверг/1
+        //GET: api/Mobile/raspisanie/15С/Четверг/1
         [HttpGet("raspisanie/{group}/{day}/1")]
         public IActionResult GetRaspisanieByGroup(string group, string day)
         {
