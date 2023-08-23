@@ -37,9 +37,9 @@ namespace raspisanie_ngieu.api.Controllers
         }
         //GET : api/Support/GetCurrentWeek
         [HttpGet("GetCurrentWeek")]
-        public IActionResult GetCurrentWeek()
+        public IEnumerable<Weeks> GetCurrentWeek()
         {
-            var result = new JsonResult(_context.Weeks.FromSqlRaw("EXECUTE [dbo].[GetCurrentWeekType]"), new JsonSerializerOptions { PropertyNamingPolicy = null });
+            var result = _context.Weeks.FromSqlRaw("EXECUTE [dbo].[GetCurrentWeekType]");
             return result;
         }
     }

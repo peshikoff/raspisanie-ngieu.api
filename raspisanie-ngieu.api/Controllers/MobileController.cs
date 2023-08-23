@@ -21,6 +21,8 @@ namespace raspisanie_ngieu.api.Controllers
         {
             _context = context;
         }
+
+
         //GET: api/Mobile/raspisanie/15С/Четверг/2
         [HttpGet("raspisanie/{group}/{day}/2")]
         public IActionResult GetRaspisanieWithChanges(string group, string day) 
