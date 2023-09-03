@@ -34,6 +34,7 @@ namespace raspisanie_ngieu.api.Models
         public virtual DbSet<StoredProcedureModel> StoredProcedureModels { get; set; } = null!;
         public virtual DbSet<Groups> Groups { get; set; } = null!;
         public virtual DbSet<Weeks> Weeks { get; set; } = null!;
+        public virtual DbSet<Teachers> Teachers { get; set; } = null!;
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -455,6 +456,10 @@ namespace raspisanie_ngieu.api.Models
             modelBuilder.Entity<Weeks>(entity =>
             {
                 entity.HasNoKey();
+            });
+            modelBuilder.Entity<Teachers>(enttity =>
+            {
+                enttity.HasNoKey();
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -10,7 +10,7 @@ namespace raspisanie_ngieu.api.Models
 
         public byte Number { get; set; }
         public string Time { get; set; } = null!;
-        
+        public string Group { get; set; } = null!;
         public string Lesson { get; set; } = null!;
         
         public string? Type { get; set; } = null!;
