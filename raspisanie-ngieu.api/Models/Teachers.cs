@@ -3,7 +3,7 @@
     public partial class Teachers
     {
         public Guid guid { get; set; }
-        public string FIO { get; set; } = null!;
+        public string? FIO { get; set; }
 
 
     }

@@ -23,10 +23,9 @@ namespace raspisanie_ngieu.api.Controllers
             _context = context;
         }
 
-
-        //GET: api/Mobile/raspisanie/15С/Четверг/2
-        [HttpGet("raspisanie/{group}/{day}/2")]
-        public IActionResult GetRaspisanieWithChanges(string group, string day) 
+        //GET: api/Mobile/raspisanie/15С/Четверг/group
+        [HttpGet("raspisanie/{group}/{day}/group")]
+        public IActionResult raspisanie_by_group(string group, string day)
         {
             var Group = new SqlParameter
             {
@@ -43,14 +42,37 @@ namespace raspisanie_ngieu.api.Controllers
                 ParameterName = "Day"
             };
 
-            var result = new JsonResult(_context.StoredProcedureModels.FromSqlRaw("EXECUTE dbo.[GETraspisanieWithChanges] @Group={0}, @Day={1}", Group,Day), new JsonSerializerOptions { PropertyNamingPolicy = null });
+            var result = new JsonResult(_context.StoredProcedureModels.FromSqlRaw("EXECUTE dbo.[GETraspisanieByGroup] @Group={0}, @Day={1}", Group, Day), new JsonSerializerOptions { PropertyNamingPolicy = null });
 
             return result;
         }
 
-        //GET: api/Mobile/raspisanie/15С
-        [HttpGet("raspisanie/{group}/{day}/3")]
-        public IActionResult GETraspisanie_changes_events(string group, string day)
+        //GET: api/Mobile/raspisanie/61b5f61b-d182-4bce-be1c-fb641933b738/Четверг/teacher
+        [HttpGet("raspisanie/{guid}/{day}/teacher")]
+        public IActionResult raspisanie_teacher(Guid guid,string day)
+        {
+            var FIO = new SqlParameter
+            {
+                Value = guid,
+                SqlDbType = SqlDbType.UniqueIdentifier,
+                Direction = ParameterDirection.Input,
+                ParameterName = "FIO"
+            };
+            var Day = new SqlParameter
+            {
+                Value = day,
+                SqlDbType = SqlDbType.NVarChar,
+                Direction = ParameterDirection.Input,
+                ParameterName = "Day"
+            };
+            var result = new JsonResult(_context.StoredProcedureModels.FromSqlRaw("EXECUTE dbo.[GETraspisanie_teacher] @FIO={0}, @Day={1}", FIO, Day), new JsonSerializerOptions { PropertyNamingPolicy = null });
+
+            return result;
+        } 
+
+        //GET: api/Mobile/raspisanie/15С/Четверг/group_all
+        [HttpGet("raspisanie/{group}/{day}/group_all")]
+        public IActionResult raspisanie_changes_events(string group, string day)
         {
             var Group = new SqlParameter
             {
@@ -72,16 +94,16 @@ namespace raspisanie_ngieu.api.Controllers
             return result;
         }
 
-        //GET: api/Mobile/raspisanie/15С/Четверг/1
-        [HttpGet("raspisanie/{group}/{day}/1")]
-        public IActionResult GetRaspisanieByGroup(string group, string day)
+        //GET: api/Mobile/raspisanie/61b5f61b-d182-4bce-be1c-fb641933b738/Пятница/teacher_all
+        [HttpGet("raspisanie/{guid}/{day}/teacher_all")]
+        public IActionResult raspisanie_changes_events_teachers(Guid guid, string day)
         {
-            var Group = new SqlParameter
+            var FIO = new SqlParameter
             {
-                Value= group,
-                SqlDbType = SqlDbType.NVarChar,
+                Value = guid,
+                SqlDbType = SqlDbType.UniqueIdentifier,
                 Direction = ParameterDirection.Input,
-                ParameterName = "Group"
+                ParameterName = "FIO"
             };
             var Day = new SqlParameter
             {
@@ -90,15 +112,14 @@ namespace raspisanie_ngieu.api.Controllers
                 Direction = ParameterDirection.Input,
                 ParameterName = "Day"
             };
+            var result = new JsonResult(_context.StoredProcedureModels.FromSqlRaw("EXECUTE dbo.[GETraspisanie_changes_events_teachers] @FIO={0}, @Day={1}", FIO, Day), new JsonSerializerOptions { PropertyNamingPolicy = null });
 
-            var result = new JsonResult(_context.StoredProcedureModels.FromSqlRaw("EXECUTE dbo.[GETraspisanieByGroup] @Group={0}, @Day={1}", Group, Day), new JsonSerializerOptions { PropertyNamingPolicy = null });
-            
             return result;
         }
 
-        //GET: api/Mobile/changes/15С/Четверг
-        [HttpGet("changes/{group}/{day}")]
-        public IActionResult GetChangesByGroup(string group,string day)
+        //GET: api/Mobile/changes/15С/Четверг/group
+        [HttpGet("changes/{group}/{day}/group")]
+        public IActionResult changes_by_group(string group,string day)
         {
             var Group = new SqlParameter
             {
@@ -119,9 +140,10 @@ namespace raspisanie_ngieu.api.Controllers
             
             return result;
         }
-        //GET: api/Mobile/raspisanie/F01740F5-B67A-4342-993C-DAF795F8A11D/Четверг
-        [HttpGet("raspisanie/{guid}/{day}")]
-        public IActionResult GETraspisanie_events_changes_teachers(Guid guid, string day)
+
+        //GET: api/Mobile/changes/61b5f61b-d182-4bce-be1c-fb641933b738/Пятница/teacher
+        [HttpGet("changes/{guid}/{day}/teacher")]
+        public IActionResult changes_teacher(Guid guid, string day)
         {
             var FIO = new SqlParameter
             {
@@ -137,11 +159,9 @@ namespace raspisanie_ngieu.api.Controllers
                 Direction = ParameterDirection.Input,
                 ParameterName = "Day"
             };
-            var result = new JsonResult(_context.StoredProcedureModels.FromSqlRaw("EXECUTE dbo.[GETraspisanie_events_changes_teachers] @FIO={0}, @Day={1}", FIO, Day), new JsonSerializerOptions { PropertyNamingPolicy = null });
-            
+            var result = new JsonResult(_context.StoredProcedureModels.FromSqlRaw("EXECUTE dbo.[GETchanges_teacher] @FIO={0}, @Day={1}", FIO, Day), new JsonSerializerOptions { PropertyNamingPolicy = null });
+
             return result;
         }
-
-
     }
 }
