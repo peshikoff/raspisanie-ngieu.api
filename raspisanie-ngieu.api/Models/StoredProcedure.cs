@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace raspisanie_ngieu.api.Models
+﻿namespace raspisanie_ngieu.api.Models
 {
     public partial class StoredProcedureModel
     {
